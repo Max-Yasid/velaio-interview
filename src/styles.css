@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+@font-face {
+  font-style: normal;
+  font-family: Antipasto;
+  src: url(./assets/fonts/antipasto/Antipasto-Thin.ttf);
+  font-weight: 200;
+}
+
+@font-face {
+  font-style: normal;
+  font-family: Antipasto;
+  src: url(./assets/fonts/antipasto/Antipasto-Bold.ttf);
+  font-weight: 600;
+}
+@font-face {
+  font-style: normal;
+  font-family: Antipasto;
+  src: url(./assets/fonts/antipasto/Antipasto-DemiBold.ttf);
+  font-weight: 500;
+}
+@font-face {
+  font-style: normal;
+  font-family: Antipasto;
+  src: url(./assets/fonts/antipasto/Antipasto-ExtraBold.ttf);
+  font-weight: 700;
+}
+@font-face {
+  font-style: normal;
+  font-family: Antipasto;
+  src: url(./assets/fonts/antipasto/Antipasto-Medium.ttf);
+  font-weight: 400;
+}
+@font-face {
+  font-style: normal;
+  font-family: Antipasto;
+  src: url(./assets/fonts/antipasto/Antipasto-Light.ttf);
+  font-weight: 300;
+}
+body {
+  margin: 0;
+  font-family: Antipasto, sans-serif;
+}
