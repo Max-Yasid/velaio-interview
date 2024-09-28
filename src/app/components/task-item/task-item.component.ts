@@ -12,6 +12,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ParticipantComponent } from '../participant/participant.component';
 import { Task } from 'src/app/interfaces/Task';
 import { PostgresRepositoryService } from 'src/app/repositories/postgres-repository.service';
+import { Store } from '@ngrx/store';
+import { TasksActions } from 'src/app/state/actions/task.actions';
 
 @Component({
   selector: 'app-task-item',
@@ -33,9 +35,14 @@ export class TaskItemComponent {
   panelOpenState = false;
   @Input() task!: Task;
 
-  constructor(private tasksRepository: PostgresRepositoryService) {}
+  constructor(
+    private tasksRepository: PostgresRepositoryService,
+    private store: Store
+  ) {}
 
   changeTaskStatus(id: number, { checked }: MatCheckboxChange) {
     this.tasksRepository.changeStatus(id, checked).subscribe();
+    if (checked) this.store.dispatch(TasksActions.completeTask({ taskId: id }));
+    else this.store.dispatch(TasksActions.undoneTask({ taskId: id }));
   }
 }

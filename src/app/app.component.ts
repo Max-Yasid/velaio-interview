@@ -10,7 +10,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateTaskModalComponent } from './components/create-task-modal/create-task-modal.component';
 import { PostgresRepositoryService } from './repositories/postgres-repository.service';
 import { Store } from '@ngrx/store';
-import { TasksApiActions } from './state/actions/task.actions';
 import {
   selectTaskCollection,
   selectTasks,
@@ -18,6 +17,7 @@ import {
 import { FilterTasksPipe } from './pipes/filter-tasks.pipe';
 import { Observable } from 'rxjs';
 import { Task } from './interfaces/Task';
+import { TasksActions } from './state/actions/task.actions';
 
 const enum Filters {
   ALL = 'ALL',
@@ -47,7 +47,6 @@ export class AppComponent {
   selectedFilter: 'ALL' | 'COMPLETED' | 'PENDING' = Filters.ALL;
 
   tasks$ = this.store.select(selectTasks);
-  tasksCollection$ = this.store.select(selectTaskCollection);
 
   constructor(
     private dialog: MatDialog,
@@ -55,7 +54,7 @@ export class AppComponent {
     private store: Store
   ) {
     this.tasksRepository.getAll().subscribe((tasks) => {
-      this.store.dispatch(TasksApiActions.getAll({ tasks }));
+      this.store.dispatch(TasksActions.setAll({ tasks }));
     });
   }
   openCreateTaskModal() {

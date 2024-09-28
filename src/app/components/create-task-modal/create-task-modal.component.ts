@@ -22,6 +22,8 @@ import { MatRippleModule } from '@angular/material/core';
 import { PostgresRepositoryService } from 'src/app/repositories/postgres-repository.service';
 import { Task } from 'src/app/interfaces/Task';
 import { finalize } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { TasksActions } from 'src/app/state/actions/task.actions';
 
 @Component({
   selector: 'app-create-task-modal',
@@ -63,7 +65,8 @@ export class CreateTaskModalComponent {
 
   constructor(
     private taskRepository: PostgresRepositoryService,
-    private dialogRef: MatDialogRef<CreateTaskModalComponent>
+    private dialogRef: MatDialogRef<CreateTaskModalComponent>,
+    private store: Store
   ) {}
   addPerson() {
     this.isAddingPerson = true;
@@ -108,9 +111,18 @@ export class CreateTaskModalComponent {
     if (this.taskForm.invalid) return this.taskForm.markAllAsTouched();
     this.isSaving = true;
     this.taskRepository
-      .create(this.taskForm.value as Task)
+      .create({ ...this.taskForm.value } as Partial<Task>)
       .pipe(finalize(() => (this.isSaving = false)))
       .subscribe((id) => {
+        this.store.dispatch(
+          TasksActions.addTask({
+            task: {
+              ...this.taskForm.value,
+              id: Number(id),
+              completed: false,
+            } as Task,
+          })
+        );
         this.dialogRef.close();
       });
   }

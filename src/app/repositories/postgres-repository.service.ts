@@ -15,7 +15,7 @@ export class PostgresRepositoryService {
   delete(id: number) {
     return this.http.delete(`${this.endpoint}/${id}`);
   }
-  create(task: Task) {
+  create(task: Partial<Task>) {
     return this.http.post<string>(this.endpoint, task);
   }
   changeStatus(id: number, completed: boolean) {

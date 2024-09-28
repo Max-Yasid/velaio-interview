@@ -5,9 +5,8 @@ import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideStore, StoreModule } from '@ngrx/store';
 import { MatNativeDateModule } from '@angular/material/core';
-import { TasksReducer } from './state/reducers/task.reducer';
-import { collectionReducer } from './state/collections/collection.reducer';
 import { provideHttpClient } from '@angular/common/http';
+import { TaskReducer } from './state/reducers/task.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,8 +16,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom([
       MatNativeDateModule,
       StoreModule.forRoot({
-        tasks: TasksReducer,
-        collection: collectionReducer,
+        tasks: TaskReducer,
       }),
     ]),
     provideHttpClient(),
