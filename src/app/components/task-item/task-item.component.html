@@ -1,0 +1,47 @@
+<mat-expansion-panel
+  (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title
+      ><span (click)="$event.stopPropagation()">
+        <mat-checkbox></mat-checkbox
+      ></span>
+      <h2 class="title">Preparar ceviche</h2>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-divider></mat-divider>
+  <section class="participants">
+    <h2 class="participants_title">Participantes:</h2>
+    <ul class="participants_list">
+      <app-participant
+        [person]="{
+          name: 'Max Yasid Florián García',
+          age: 21,
+          skills: ['css', 'typescript', 'html']
+        }"
+      ></app-participant>
+      <app-participant
+        [person]="{
+          name: 'Semirani Margarita Florián García',
+          age: 32,
+          skills: ['css', 'typescript', 'html']
+        }"
+      ></app-participant>
+      <app-participant
+        [person]="{
+          name: 'María Lucía Florián García',
+          age: 20,
+          skills: ['css', 'typescript', 'html']
+        }"
+      ></app-participant>
+      <app-participant
+        [person]="{
+          name: 'María García Ruiz',
+          age: 59,
+          skills: ['css', 'typescript', 'html']
+        }"
+      ></app-participant>
+    </ul>
+  </section>
+</mat-expansion-panel>

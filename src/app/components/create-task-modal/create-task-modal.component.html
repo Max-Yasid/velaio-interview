@@ -1,0 +1,103 @@
+<h2>Crear nueva tarea</h2>
+<div mat-dialog-content>
+  <form [formGroup]="taskForm">
+    <mat-form-field>
+      <mat-label> Nombre de la tarea </mat-label>
+      <input matInput />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="datepicker" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="datepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepicker
+        ><button mat-button matDateRangePickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDateRangePickerApply>
+          Apply
+        </button>
+      </mat-datepicker>
+    </mat-form-field>
+    <section formArrayName="persons">
+      <div class="addPerson">
+        <h3 class="addPerson_title">Personas asociadas</h3>
+        <button
+          *ngIf="!isAddingPerson"
+          mat-mini-fab
+          color="accent"
+          (click)="addPerson()"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+        <button
+          *ngIf="isAddingPerson"
+          mat-mini-fab
+          color="accent"
+          (click)="savePerson()"
+        >
+          <mat-icon>check</mat-icon>
+        </button>
+      </div>
+      <ul>
+        <li [formGroup]="addPersonForm" *ngIf="isAddingPerson">
+          <mat-form-field>
+            <mat-label> Nombre</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label> Edad </mat-label>
+            <input matInput type="number" formControlName="age" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Habilidades</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Enter fruits">
+              <mat-chip-row
+                *ngFor="
+                  let skill of addPersonForm.value.skills;
+                  track: skill;
+                  let j = index
+                "
+                (removed)="remove(j)"
+                [editable]="false"
+              >
+                {{ skill }}
+                <button matChipRemove [attr.aria-label]="'remove ' + skill">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+              <input
+                placeholder="Nueva habilidad..."
+                [matChipInputFor]="chipGrid"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)"
+              />
+            </mat-chip-grid>
+          </mat-form-field>
+        </li>
+        <ng-container *ngIf="!personsForm.length && !isAddingPerson">
+          <p class="emptyPersonsMessage">No hay personas asociadas</p>
+        </ng-container>
+        <ng-container *ngIf="personsForm.length">
+          <div
+            *ngFor="let person of personsForm.value; let i = index"
+            class="addedParticipant"
+          >
+            <app-participant
+              [person]="person"
+              class="participant"
+            ></app-participant>
+            <span matRipple class="deleteParticipant" (click)="deletePerson(i)">
+              <mat-icon color="warn">delete</mat-icon></span
+            >
+          </div>
+        </ng-container>
+      </ul>
+    </section>
+    <div class="form_actions">
+      <button mat-button mat-dialog-close type="button">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit">Guardar</button>
+    </div>
+  </form>
+</div>

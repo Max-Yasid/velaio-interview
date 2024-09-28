@@ -1,0 +1,34 @@
+mat-card {
+  padding: 4px 4px 4px 4px;
+  display: flex;
+  flex-direction: column;
+}
+mat-panel-title {
+  width: 98%;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  overflow: hidden;
+}
+.participants {
+  display: flex;
+  flex-direction: column;
+}
+.participants_title {
+  color: gray;
+  font-size: 12px;
+  font-weight: 300;
+  font-family: "Poppins", sans-serif;
+}
+.participants_list {
+  margin: 0;
+  margin-left: 18px;
+  padding: 0;
+  list-style: none;
+}

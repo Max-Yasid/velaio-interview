@@ -1,1 +1,23 @@
 <h1>Lista de tareas</h1>
+<div class="tasks_container">
+  <section class="tasks_header">
+    <nav>
+      <ul>
+        <li class="selected_taskFilter">Todas</li>
+        <li>Completadas</li>
+        <li>Pendientes</li>
+      </ul>
+    </nav>
+
+    <section class="tasks_list">
+      <mat-accordion>
+        <app-task-item></app-task-item>
+      </mat-accordion>
+    </section>
+  </section>
+  <div class="addTask_button">
+    <button mat-fab color="primary" (click)="openCreateTaskModal()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  padding: 0 26px;
+  margin-bottom: 0;
+}
+mat-form-field {
+  width: 100%;
+}
+.form_actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.addPerson_title {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}
+.addPerson {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: black;
+  justify-content: space-between;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+.addedParticipant {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+.participant {
+  max-width: 90%;
+  width: 100%;
+}
+.deleteParticipant {
+  display: grid;
+  place-items: center;
+  border-radius: 9999;
+}
+.emptyPersonsMessage {
+  font-size: 14px;
+  text-align: center;
+}
