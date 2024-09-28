@@ -19,6 +19,7 @@ import { MatChipsModule, MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ParticipantComponent } from '../participant/participant.component';
 import { MatRippleModule } from '@angular/material/core';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { PostgresRepositoryService } from 'src/app/repositories/postgres-repository.service';
 import { Task } from 'src/app/interfaces/Task';
 import { finalize } from 'rxjs';
@@ -41,6 +42,7 @@ import { TasksActions } from 'src/app/state/actions/task.actions';
     MatChipsModule,
     ParticipantComponent,
     MatRippleModule,
+    MatSnackBarModule,
   ],
   templateUrl: './create-task-modal.component.html',
   styleUrls: ['./create-task-modal.component.css'],
@@ -66,7 +68,8 @@ export class CreateTaskModalComponent {
   constructor(
     private taskRepository: PostgresRepositoryService,
     private dialogRef: MatDialogRef<CreateTaskModalComponent>,
-    private store: Store
+    private store: Store,
+    private snackbar: MatSnackBar
   ) {}
   addPerson() {
     this.isAddingPerson = true;
@@ -91,6 +94,10 @@ export class CreateTaskModalComponent {
   savePerson() {
     if (this.addPersonForm.invalid)
       return this.addPersonForm.markAllAsTouched();
+    if (this.addPersonForm.get('skills')!.value.length < 1)
+      return this.snackbar.open('Debe ingresar almenos una habilidad', 'ok', {
+        duration: 5000,
+      });
     this.personsForm.push(
       new FormGroup({
         name: new FormControl(this.addPersonForm.get('name')?.value),
@@ -107,7 +114,6 @@ export class CreateTaskModalComponent {
   }
 
   createTask() {
-    console.log(this.taskForm.value, this.taskForm.invalid);
     if (this.taskForm.invalid) return this.taskForm.markAllAsTouched();
     this.isSaving = true;
     this.taskRepository

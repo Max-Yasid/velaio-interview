@@ -4,19 +4,28 @@
     <nav>
       <ul>
         <li
-          [ngClass]="{ selected_taskFilter: selectedFilter === 'ALL' }"
+          [ngClass]="{
+            filter: true,
+            selected_taskFilter: selectedFilter === 'ALL'
+          }"
           (click)="selectFilter('ALL')"
         >
           Todas
         </li>
         <li
-          [ngClass]="{ selected_taskFilter: selectedFilter === 'COMPLETED' }"
+          [ngClass]="{
+            filter: true,
+            selected_taskFilter: selectedFilter === 'COMPLETED'
+          }"
           (click)="selectFilter('COMPLETED')"
         >
           Completadas
         </li>
         <li
-          [ngClass]="{ selected_taskFilter: selectedFilter === 'PENDING' }"
+          [ngClass]="{
+            filter: true,
+            selected_taskFilter: selectedFilter === 'PENDING'
+          }"
           (click)="selectFilter('PENDING')"
         >
           Pendientes
@@ -25,12 +34,16 @@
     </nav>
 
     <section class="tasks_list">
-      <mat-accordion>
+      <mat-accordion class="w-full">
         <ng-container *ngIf="tasks$ | async; let tasks">
           <app-task-item
+            class="w-full"
             *ngFor="let task of tasks | filterTasks : selectedFilter"
             [task]="task"
           ></app-task-item>
+          <div *ngIf="!(tasks | filterTasks : selectedFilter).length">
+            <p class="emptyList">Lista vacía</p>
+          </div>
         </ng-container>
       </mat-accordion>
     </section>

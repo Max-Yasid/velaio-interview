@@ -14,6 +14,7 @@ import { Task } from 'src/app/interfaces/Task';
 import { PostgresRepositoryService } from 'src/app/repositories/postgres-repository.service';
 import { Store } from '@ngrx/store';
 import { TasksActions } from 'src/app/state/actions/task.actions';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-task-item',
@@ -27,6 +28,7 @@ import { TasksActions } from 'src/app/state/actions/task.actions';
     MatExpansionModule,
     MatDividerModule,
     ParticipantComponent,
+    MatButtonModule,
   ],
   templateUrl: './task-item.component.html',
   styleUrls: ['./task-item.component.css'],
@@ -44,5 +46,10 @@ export class TaskItemComponent {
     this.tasksRepository.changeStatus(id, checked).subscribe();
     if (checked) this.store.dispatch(TasksActions.completeTask({ taskId: id }));
     else this.store.dispatch(TasksActions.undoneTask({ taskId: id }));
+  }
+  deleteTask(e: Event, taskId: number) {
+    e.stopPropagation();
+    this.store.dispatch(TasksActions.removeTask({ taskId }));
+    this.tasksRepository.delete(taskId).subscribe();
   }
 }

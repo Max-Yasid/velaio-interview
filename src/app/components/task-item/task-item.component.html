@@ -1,21 +1,30 @@
 <mat-expansion-panel
+  class="container"
   (opened)="panelOpenState = true"
   (closed)="panelOpenState = false"
 >
   <mat-expansion-panel-header>
-    <mat-panel-title
-      ><span (click)="$event.stopPropagation()">
+    <mat-panel-title>
+      <span (click)="$event.stopPropagation()">
         <mat-checkbox
           [checked]="task.completed"
           (change)="changeTaskStatus(task.id, $event)"
-        ></mat-checkbox
-      ></span>
+        >
+        </mat-checkbox>
+      </span>
       <h2 class="title">{{ task.name }}</h2>
     </mat-panel-title>
+    <mat-panel-description>
+      <span (click)="deleteTask($event, task.id)" matRipple
+        ><mat-icon color="warn">delete</mat-icon>
+      </span>
+    </mat-panel-description>
   </mat-expansion-panel-header>
   <mat-divider></mat-divider>
   <section class="participants">
-    <h2 class="participants_title">Participantes:</h2>
+    <h2 class="participants_title">
+      <span>Participantes:</span> <span> ({{ task.date }})</span>
+    </h2>
     <ul class="participants_list">
       <app-participant
         *ngFor="let person of task.persons"

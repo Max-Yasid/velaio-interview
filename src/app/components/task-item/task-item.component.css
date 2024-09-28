@@ -3,15 +3,17 @@ mat-card {
   display: flex;
   flex-direction: column;
 }
-mat-panel-title {
-  width: 98%;
-}
 
+mat-panel-description {
+  display: flex;
+  justify-content: flex-end;
+}
 .title {
   font-size: 14px;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
-  width: 100%;
+  text-align: start;
+  max-width: calc(90dvw - 160px);
   text-overflow: ellipsis;
   text-wrap: nowrap;
   overflow: hidden;
@@ -24,6 +26,8 @@ mat-panel-title {
   color: gray;
   font-size: 12px;
   font-weight: 300;
+  display: flex;
+  justify-content: space-between;
   font-family: "Poppins", sans-serif;
 }
 .participants_list {
@@ -31,4 +35,7 @@ mat-panel-title {
   margin-left: 18px;
   padding: 0;
   list-style: none;
+}
+.container {
+  max-width: 90dvw;
 }

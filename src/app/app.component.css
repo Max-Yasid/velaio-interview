@@ -25,6 +25,9 @@ h1 {
 .selected_taskFilter {
   position: relative;
 }
+.filter {
+  cursor: pointer;
+}
 .selected_taskFilter::after {
   content: "";
   position: absolute;
@@ -42,6 +45,11 @@ ul {
   list-style: none;
   padding: 4px 0;
 }
+.emptyList {
+  text-align: center;
+  color: gray;
+  font-size: 14px;
+}
 li {
   font-size: 14px;
 }
@@ -53,4 +61,7 @@ li {
   position: absolute;
   bottom: 12px;
   right: 12px;
+}
+.w-full {
+  width: 100%;
 }
