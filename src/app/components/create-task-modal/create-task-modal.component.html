@@ -3,21 +3,16 @@
   <form [formGroup]="taskForm">
     <mat-form-field>
       <mat-label> Nombre de la tarea </mat-label>
-      <input matInput />
+      <input matInput formControlName="name" />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="datepicker" />
+      <mat-label>Escoge una fecha</mat-label>
+      <input matInput [matDatepicker]="datepicker" formControlName="date" />
       <mat-datepicker-toggle
         matIconSuffix
         [for]="datepicker"
       ></mat-datepicker-toggle>
-      <mat-datepicker #datepicker
-        ><button mat-button matDateRangePickerCancel>Cancel</button>
-        <button mat-raised-button color="primary" matDateRangePickerApply>
-          Apply
-        </button>
-      </mat-datepicker>
+      <mat-datepicker #datepicker> </mat-datepicker>
     </mat-form-field>
     <section formArrayName="persons">
       <div class="addPerson">
@@ -53,11 +48,7 @@
             <mat-label>Habilidades</mat-label>
             <mat-chip-grid #chipGrid aria-label="Enter fruits">
               <mat-chip-row
-                *ngFor="
-                  let skill of addPersonForm.value.skills;
-                  track: skill;
-                  let j = index
-                "
+                *ngFor="let skill of addPersonForm.value.skills; let j = index"
                 (removed)="remove(j)"
                 [editable]="false"
               >
@@ -97,7 +88,14 @@
     </section>
     <div class="form_actions">
       <button mat-button mat-dialog-close type="button">Cancelar</button>
-      <button mat-raised-button color="primary" type="submit">Guardar</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="createTask()"
+      >
+        Guardar
+      </button>
     </div>
   </form>
 </div>

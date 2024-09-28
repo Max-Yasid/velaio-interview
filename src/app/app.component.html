@@ -3,15 +3,35 @@
   <section class="tasks_header">
     <nav>
       <ul>
-        <li class="selected_taskFilter">Todas</li>
-        <li>Completadas</li>
-        <li>Pendientes</li>
+        <li
+          [ngClass]="{ selected_taskFilter: selectedFilter === 'ALL' }"
+          (click)="selectFilter('ALL')"
+        >
+          Todas
+        </li>
+        <li
+          [ngClass]="{ selected_taskFilter: selectedFilter === 'COMPLETED' }"
+          (click)="selectFilter('COMPLETED')"
+        >
+          Completadas
+        </li>
+        <li
+          [ngClass]="{ selected_taskFilter: selectedFilter === 'PENDING' }"
+          (click)="selectFilter('PENDING')"
+        >
+          Pendientes
+        </li>
       </ul>
     </nav>
 
     <section class="tasks_list">
       <mat-accordion>
-        <app-task-item></app-task-item>
+        <ng-container *ngIf="tasks$ | async; let tasks">
+          <app-task-item
+            *ngFor="let task of tasks | filterTasks : selectedFilter"
+            [task]="task"
+          ></app-task-item>
+        </ng-container>
       </mat-accordion>
     </section>
   </section>

@@ -8,6 +8,22 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateTaskModalComponent } from './components/create-task-modal/create-task-modal.component';
+import { PostgresRepositoryService } from './repositories/postgres-repository.service';
+import { Store } from '@ngrx/store';
+import { TasksApiActions } from './state/actions/task.actions';
+import {
+  selectTaskCollection,
+  selectTasks,
+} from './state/selectors/task.selector';
+import { FilterTasksPipe } from './pipes/filter-tasks.pipe';
+import { Observable } from 'rxjs';
+import { Task } from './interfaces/Task';
+
+const enum Filters {
+  ALL = 'ALL',
+  COMPLETED = 'COMPLETED',
+  PENDING = 'PENDING',
+}
 
 @Component({
   selector: 'app-root',
@@ -20,6 +36,7 @@ import { CreateTaskModalComponent } from './components/create-task-modal/create-
     MatExpansionModule,
     MatButtonModule,
     MatIconModule,
+    FilterTasksPipe,
     MatDialogModule,
   ],
   templateUrl: './app.component.html',
@@ -27,11 +44,28 @@ import { CreateTaskModalComponent } from './components/create-task-modal/create-
 })
 export class AppComponent {
   title = 'velaio-interview';
-  constructor(private dialog: MatDialog) {}
+  selectedFilter: 'ALL' | 'COMPLETED' | 'PENDING' = Filters.ALL;
+
+  tasks$ = this.store.select(selectTasks);
+  tasksCollection$ = this.store.select(selectTaskCollection);
+
+  constructor(
+    private dialog: MatDialog,
+    private tasksRepository: PostgresRepositoryService,
+    private store: Store
+  ) {
+    this.tasksRepository.getAll().subscribe((tasks) => {
+      this.store.dispatch(TasksApiActions.getAll({ tasks }));
+    });
+  }
   openCreateTaskModal() {
     this.dialog
       .open(CreateTaskModalComponent)
       .afterClosed()
       .subscribe((wasCreated) => {});
+  }
+
+  selectFilter(filter: 'ALL' | 'COMPLETED' | 'PENDING') {
+    this.selectedFilter = filter;
   }
 }

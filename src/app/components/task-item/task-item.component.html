@@ -5,9 +5,12 @@
   <mat-expansion-panel-header>
     <mat-panel-title
       ><span (click)="$event.stopPropagation()">
-        <mat-checkbox></mat-checkbox
+        <mat-checkbox
+          [checked]="task.completed"
+          (change)="changeTaskStatus(task.id, $event)"
+        ></mat-checkbox
       ></span>
-      <h2 class="title">Preparar ceviche</h2>
+      <h2 class="title">{{ task.name }}</h2>
     </mat-panel-title>
   </mat-expansion-panel-header>
   <mat-divider></mat-divider>
@@ -15,32 +18,8 @@
     <h2 class="participants_title">Participantes:</h2>
     <ul class="participants_list">
       <app-participant
-        [person]="{
-          name: 'Max Yasid Florián García',
-          age: 21,
-          skills: ['css', 'typescript', 'html']
-        }"
-      ></app-participant>
-      <app-participant
-        [person]="{
-          name: 'Semirani Margarita Florián García',
-          age: 32,
-          skills: ['css', 'typescript', 'html']
-        }"
-      ></app-participant>
-      <app-participant
-        [person]="{
-          name: 'María Lucía Florián García',
-          age: 20,
-          skills: ['css', 'typescript', 'html']
-        }"
-      ></app-participant>
-      <app-participant
-        [person]="{
-          name: 'María García Ruiz',
-          age: 59,
-          skills: ['css', 'typescript', 'html']
-        }"
+        *ngFor="let person of task.persons"
+        [person]="person"
       ></app-participant>
     </ul>
   </section>

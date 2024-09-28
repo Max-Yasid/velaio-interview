@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import {
+  MatCheckboxChange,
+  MatCheckboxModule,
+} from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { ParticipantComponent } from '../participant/participant.component';
+import { Task } from 'src/app/interfaces/Task';
+import { PostgresRepositoryService } from 'src/app/repositories/postgres-repository.service';
 
 @Component({
   selector: 'app-task-item',
@@ -26,4 +31,11 @@ import { ParticipantComponent } from '../participant/participant.component';
 })
 export class TaskItemComponent {
   panelOpenState = false;
+  @Input() task!: Task;
+
+  constructor(private tasksRepository: PostgresRepositoryService) {}
+
+  changeTaskStatus(id: number, { checked }: MatCheckboxChange) {
+    this.tasksRepository.changeStatus(id, checked).subscribe();
+  }
 }

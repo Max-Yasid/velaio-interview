@@ -16,8 +16,12 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule, MatChipInputEvent } from '@angular/material/chips';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ParticipantComponent } from '../participant/participant.component';
 import { MatRippleModule } from '@angular/material/core';
+import { PostgresRepositoryService } from 'src/app/repositories/postgres-repository.service';
+import { Task } from 'src/app/interfaces/Task';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-create-task-modal',
@@ -40,6 +44,7 @@ import { MatRippleModule } from '@angular/material/core';
   styleUrls: ['./create-task-modal.component.css'],
 })
 export class CreateTaskModalComponent {
+  isSaving = false;
   readonly addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   isAddingPerson = false;
@@ -56,7 +61,10 @@ export class CreateTaskModalComponent {
     skills: new FormArray<FormControl>([], Validators.minLength(1)),
   });
 
-  constructor() {}
+  constructor(
+    private taskRepository: PostgresRepositoryService,
+    private dialogRef: MatDialogRef<CreateTaskModalComponent>
+  ) {}
   addPerson() {
     this.isAddingPerson = true;
   }
@@ -94,6 +102,19 @@ export class CreateTaskModalComponent {
     this.addPersonForm.reset();
     this.isAddingPerson = false;
   }
+
+  createTask() {
+    console.log(this.taskForm.value, this.taskForm.invalid);
+    if (this.taskForm.invalid) return this.taskForm.markAllAsTouched();
+    this.isSaving = true;
+    this.taskRepository
+      .create(this.taskForm.value as Task)
+      .pipe(finalize(() => (this.isSaving = false)))
+      .subscribe((id) => {
+        this.dialogRef.close();
+      });
+  }
+
   get personsForm() {
     return this.taskForm.get('persons') as FormArray<FormGroup>;
   }
