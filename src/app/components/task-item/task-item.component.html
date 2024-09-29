@@ -23,7 +23,8 @@
   <mat-divider></mat-divider>
   <section class="participants">
     <h2 class="participants_title">
-      <span>Participantes:</span> <span> ({{ task.date }})</span>
+      <span>Participantes:</span>
+      <span> ({{ task.date | date : "dd/MM/YYYY" }})</span>
     </h2>
     <ul class="participants_list">
       <app-participant

@@ -1,27 +1,36 @@
 # VelaioInterview
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+Demo: https://velaio-interview.vercel.app/
+![demo](./src/assets/images/demo.png)
 
-## Development server
+## levantar el proyecto en producción (recomendado)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Instalar las dependencias:
 
-## Code scaffolding
+```
+    pnpm i
+    o
+    npm i
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. ejecutar en el directorio del proyecto:
 
-## Build
+```
+    ./node_modules/.bin/ng serve --configuration=production
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## levantar el proyecto en local (se requiere el backend)
 
-## Running unit tests
+1. Instalar las dependencias:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+    pnpm i
+    o
+    npm i
+```
 
-## Running end-to-end tests
+2. ejecutar en el directorio del proyecto:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+    ./node_modules/.bin/ng serve
+```
