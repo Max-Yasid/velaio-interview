@@ -94,6 +94,14 @@ export class CreateTaskModalComponent {
   savePerson() {
     if (this.addPersonForm.invalid)
       return this.addPersonForm.markAllAsTouched();
+    if (
+      this.taskForm
+        .get('persons')
+        ?.value.find(({ name }) => name === this.addPersonForm.value.name)
+    )
+      return this.snackbar.open('El nombre ya esta ingresado', 'ok', {
+        duration: 5000,
+      });
     if (this.addPersonForm.get('skills')!.value.length < 1)
       return this.snackbar.open('Debe ingresar almenos una habilidad', 'ok', {
         duration: 5000,

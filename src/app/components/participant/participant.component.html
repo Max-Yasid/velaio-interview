@@ -1,12 +1,26 @@
 <li class="participant">
   <p class="participant_basicInfo">
     <span class="participant_name">{{ person.name }} </span>
-    <span> ({{ person.age }})</span>
+    <span class="participant_age"> ({{ person.age }})</span>
   </p>
   <span class="participant_skills">
     <span class="participant_skillsNumber">{{ person.skills.length }}</span>
-    <span matRipple class="participant_skillsIcon"
-      ><mat-icon color="primary">psychology</mat-icon></span
-    ></span
-  >
+    <span
+      matRipple
+      class="participant_skillsIcon"
+      [satPopoverAnchor]="popover"
+      (click)="popover.toggle()"
+      verticalAlign="top"
+      ><mat-icon color="primary">psychology</mat-icon>
+    </span>
+    <sat-popover #popover hasBackdrop>
+      <mat-card>
+        <ul>
+          <li class="skillItem" *ngFor="let skill of person.skills">
+            {{ skill }}
+          </li>
+        </ul></mat-card
+      >
+    </sat-popover>
+  </span>
 </li>
