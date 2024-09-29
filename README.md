@@ -1,7 +1,8 @@
 # VelaioInterview
 
 Demo: https://velaio-interview.vercel.app/
-![demo](./src/assets/images/demo.png)
+
+![demo](./src/assets/images/demo_desktop.png)
 
 ## levantar el proyecto en producción (recomendado)
 
